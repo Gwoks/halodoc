@@ -1,0 +1,36 @@
+<div class="container">
+
+  <div class="row justify-content-md-center" style="padding-top: 50px;">
+    <div class="col-md-8">
+      <form class="form-inline text-center">
+        <div class="form-group mx-sm-3 mb-2">
+          <input class="form-control" placeholder="Search" [(ngModel)]="searchInput"
+            [ngModelOptions]="{standalone: true}">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2" (click)="search()">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center" style="padding-top: 50px;" *ngIf="qHackerNews != null">
+    <div class="col-md-8">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Author(Submission count)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of qHackerNews.hits">
+            <td *ngIf="item.title != null"><a href="{{item.url}}">{{item.title}}</a></td>
+            <td *ngIf="item.title == null"><a href="{{item.story_url}}">{{item.story_title}}</a></td>
+            <td>{{item.author}}({{getCount(item.author)}})</td>
+          </tr>
+        </tbody>
+      </table>
+      <ngb-pagination [(page)]="qHackerNews.page" [pageSize]="qHackerNews.nbPages" [collectionSize]="qHackerNews.hitsPerPage"></ngb-pagination>
+    </div>
+  </div>
+
+</div>
